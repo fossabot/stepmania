@@ -23,6 +23,9 @@
 #include "archutils/Darwin/arch_setup.h"
 #elif defined(UNIX)
 #include "archutils/Unix/arch_setup.h"
+#elif defined(ANDROID)
+#include "archutils/Android/config.h"
+#include "archutils/Android/arch_setup.h"
 #endif
 
 /* Make sure everyone has min and max: */
@@ -158,7 +161,7 @@ typedef StdString::CStdString RString;
 
 /**
  * @file
- * @author Chris Danford, Glenn Maynard (c) 2001-2004
+ * @author Chris Danford, Glenn Maynard, Renaud Lepage (c) 2001-2014
  * @section LICENSE
  * All rights reserved.
  * 
