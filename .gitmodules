@@ -1,0 +1,3 @@
+[submodule "extern/regal"]
+	path = extern/regal
+	url = git@github.com:cybik/regal.git
