@@ -4,10 +4,9 @@
 #include <android/log.h>
 
 android_app* AndroidGlobals::ANDROID_APP_INSTANCE = NULL;
+char** AndroidGlobals::commandArguments = NULL;
 
 int AndroidGlobals::Audio::GetNativeSampleRate() {
-    // In this use case, input is basically a
-
     JNIEnv *jni;
     ANDROID_APP_INSTANCE->activity->vm->AttachCurrentThread(&jni, NULL);
 
@@ -20,8 +19,8 @@ int AndroidGlobals::Audio::GetNativeSampleRate() {
     ANDROID_APP_INSTANCE->activity->vm->DetachCurrentThread();
     return retval;
 }
-int AndroidGlobals::Audio::GetNativeFramesPerBuffer() {
 
+int AndroidGlobals::Audio::GetNativeFramesPerBuffer() {
     JNIEnv *jni;
     ANDROID_APP_INSTANCE->activity->vm->AttachCurrentThread(&jni, NULL);
 
@@ -35,8 +34,35 @@ int AndroidGlobals::Audio::GetNativeFramesPerBuffer() {
     return retval;
 }
 
+void AndroidGlobals::Crash::ForceCrash(const char* reason) {
+    JNIEnv *jni;
+    ANDROID_APP_INSTANCE->activity->vm->AttachCurrentThread(&jni, NULL);
+
+    // Classret and calling
+    jclass clazz = jni->GetObjectClass(ANDROID_APP_INSTANCE->activity->clazz);
+    jmethodID methodID =
+        jni->GetMethodID(clazz, "crash", "(Ljava/lang/String;)V");
+
+    jni->CallVoidMethod
+        (ANDROID_APP_INSTANCE->activity->clazz, methodID, jni->NewStringUTF(reason));
+
+    ANDROID_APP_INSTANCE->activity->vm->DetachCurrentThread();
+}
+
 RString AndroidGlobals::GetVideoDriverName() {
     return "SHIELD";
+}
+
+char** AndroidGlobals::GetDefaultCommandArguments() {
+    // argv[0] is a path.
+    char** theArgv;
+    theArgv = (char**)malloc(sizeof(char*[0]));
+    theArgv[0] = (char*)malloc(sizeof(ANDROID_APP_INSTANCE->activity->externalDataPath));
+
+    strcpy(theArgv[0], ANDROID_APP_INSTANCE->activity->externalDataPath);
+
+    commandArguments = theArgv;
+    return commandArguments;
 }
 
 #define APPNAME "StepMania"
