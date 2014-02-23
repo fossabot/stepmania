@@ -17,6 +17,11 @@ using CrashHandler::IsDebuggerPresent;
 using CrashHandler::DebugBreak;
 #endif
 
+// Get around crash handling definition.
+#if defined(ANDROID)
+#include "archutils/Android/CrashHandler.h"
+#endif
+
 #if defined(CRASH_HANDLER) && (defined(UNIX) || defined(MACOSX))
 #if defined(ANDROID)
 #include "archutils/Android/CrashHandler.h"
@@ -36,7 +41,8 @@ void NORETURN sm_crash( const char *reason )
 	}
 #endif
 
-#if defined(CRASH_HANDLER)
+// PARTIAL crash handler.
+#if defined(CRASH_HANDLER) || defined(ANDROID)
 	CrashHandler::ForceCrash( reason );
 #else
 	*(char*)0=0;
