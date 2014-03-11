@@ -44,7 +44,9 @@ bool RunningUnderValgrind() {
 
 static bool g_bUsingNPTL = false;
 
+#if !defined(ANDROID)
 #define gettid() syscall(SYS_gettid)
+#endif
 
 #ifndef _CS_GNU_LIBPTHREAD_VERSION
 #define _CS_GNU_LIBPTHREAD_VERSION 3
@@ -152,7 +154,6 @@ static uint64_t GetCurrentThreadIdInternal()
 	
 	InitializePidThreadHelpers(); // for g_bUsingNPTL
 
-#if !defined(ANDROID)
 	/* Don't keep calling gettid() if it's not supported; it'll make valgrind spam us. */
 	static bool GetTidUnsupported = 0;
 	if( !GetTidUnsupported )
@@ -168,7 +169,6 @@ static uint64_t GetCurrentThreadIdInternal()
 		ASSERT( !g_bUsingNPTL );
 		GetTidUnsupported = true;
 	}
-#endif
 
 	return getpid();
 }
