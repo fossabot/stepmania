@@ -78,6 +78,8 @@ if(APPLE)
   set_target_properties("${SM_EXE_NAME}" PROPERTIES
     MACOSX_BUNDLE TRUE
   )
+elseif(ANDROID)
+  add_library("${SM_EXE_NAME}" ${SMDATA_ALL_FILES_SRC} ${SMDATA_ALL_FILES_HPP})
 else()
   if (MSVC)
     foreach ( sm_src_file ${SMDATA_ALL_FILES_SRC} )
