@@ -15,7 +15,7 @@ namespace CrashHandler
 	void InitializeCrashHandler();
 	void CrashSignalHandler( int signal, siginfo_t *si, const ucontext_t *uc );*/
 	void ForceCrash( const char* reason ); // force android app crash from here.
-	//void ForceDeadlock( RString reason, uint64_t CrashHandle );
+	void ForceDeadlock( RString reason, uint64_t CrashHandle );
 };
 
 
