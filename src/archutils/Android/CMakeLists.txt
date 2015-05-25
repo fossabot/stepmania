@@ -44,6 +44,8 @@ find_package(OpenSLES)
 # Includes all things.
 message(${ANDROID_NDK}/sources/android/native_app_glue)
 
+# issue: classic non-complex cmake scripts aren't really doing us good for library linkage.
+
 #include_directories(${ANDROID_NDK}/sources/android/native_app_glue)
 #include_directories(${ANDROID_NDK}/sources/android/ndk_helper)
 #include_directories(${ANDROID_NDK}/sources/android/cpufeatures)
