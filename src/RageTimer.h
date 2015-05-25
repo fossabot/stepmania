@@ -3,6 +3,10 @@
 #ifndef RAGE_TIMER_H
 #define RAGE_TIMER_H
 
+#if defined(ANDROID)
+#include <stdint.h>
+#endif
+
 class RageTimer
 {
 public:

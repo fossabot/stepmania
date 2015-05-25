@@ -2,13 +2,9 @@
 
 #include "RageDisplay.h"
 #include "RageDisplay_GLES2.h"
-#include "RageUtil.h"
 #include "RageFile.h"
 #include "RageLog.h"
-#include "RageTimer.h"
 #include "RageMath.h"
-#include "RageTypes.h"
-#include "RageUtil.h"
 #include "RageSurface.h"
 #include "RageSurfaceUtils.h"
 #include "RageTextureManager.h"
@@ -17,12 +13,12 @@
 #include "DisplayResolutions.h"
 
 #include "arch/LowLevelWindow/LowLevelWindow.h"
+#include "arch_setup.h"
 
 //#include <GL/glew.h>
 
 // Bring in GLES2
 #include <GLES2/gl2.h>
-#include <GLES2/gl2platform.h>
 #include <GLES2/gl2ext.h>
 
 #ifdef NO_GL_FLUSH
