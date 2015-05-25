@@ -1,4 +1,5 @@
 # Traditional Compilation File Stuff.
+.idea/
 build/
 .dirstamp
 .deps
