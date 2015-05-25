@@ -7,6 +7,10 @@ void CrashHandler::ForceCrash( const char *reason )
     AndroidGlobals::Crash::ForceCrash(reason);
 }
 
+void CrashHandler::ForceDeadlock(RString reason, uint64_t CrashHandle) {
+    RageException::Throw( "%s", reason.c_str() ); // TODO: actually implement this
+}
+
 /*
  * (c) 2014 Renaud Lepage
  * All rights reserved.

@@ -16,16 +16,12 @@
 #include "RageLog.h"
 #include "RageUtil.h"
 
-#include <cerrno>
-#include <set>
-
 #include "arch/Threads/Threads.h"
-#include "arch/Dialog/Dialog.h"
 
 #if defined(CRASH_HANDLER)
 #if defined(_WINDOWS)
 #include "archutils/Win32/crash.h"
-#elif defined(LINUX) || defined(MACOSX)
+#elif defined(LINUX) || defined(MACOSX) || defined(ANDROID)
 #if defined(ANDROID)
 #include "archutils/Android/CrashHandler.h"
 #else
