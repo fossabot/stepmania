@@ -59,6 +59,10 @@ include(CMakeData-screen.cmake)
 include(CMakeData-data.cmake)
 include(CMakeData-gtk.cmake)
 
+if(ANDROID)
+  include(archutils/Android/CMake/Macros.cmake)
+endif()
+
 list(APPEND SMDATA_GLOBAL_SINGLETON_SRC
   "AnnouncerManager.cpp"
   "Bookkeeper.cpp"
@@ -186,7 +190,12 @@ if(APPLE)
   add_executable("${SM_EXE_NAME}" MACOSX_BUNDLE ${SMDATA_ALL_FILES_SRC} ${SMDATA_ALL_FILES_HPP})
   set_target_properties("${SM_EXE_NAME}" PROPERTIES MACOSX_BUNDLE TRUE)
 elseif(ANDROID)
-  add_library("${SM_EXE_NAME}" ${SMDATA_ALL_FILES_SRC} ${SMDATA_ALL_FILES_HPP})
+  add_library(
+    "${SM_EXE_NAME}" # name of the link target
+     SHARED # Library type
+     ${SMDATA_ALL_FILES_SRC} ${SMDATA_ALL_FILES_HPP} # Sources
+    ) # SM stuff
+  android_add_liblink("${SM_EXE_NAME}")
 else()
   add_executable("${SM_EXE_NAME}" ${SMDATA_ALL_FILES_SRC} ${SMDATA_ALL_FILES_HPP})
 endif()
@@ -196,6 +205,8 @@ if (WITH_PORTABLE_TOMCRYPT)
 elseif (WITH_NO_ROLC_TOMCRYPT OR APPLE)
   sm_add_compile_definition("${SM_EXE_NAME}" LTC_NO_ROLC)
 elseif(ANDROID)
+  sm_add_compile_definition("${SM_EXE_NAME}" NO_VORBIS_SUPPORT=1)
+  sm_add_compile_definition("${SM_EXE_NAME}" SUPPORT_GLES2)
   sm_add_compile_definition("${SM_EXE_NAME}" ENDIAN_32BITWORD)
   sm_add_compile_definition("${SM_EXE_NAME}" ENDIAN_LITTLE)
 
@@ -409,6 +420,7 @@ endif()
 
 set_property(TARGET "${SM_EXE_NAME}" PROPERTY FOLDER "Internal Libraries")
 
+# Start the list
 list(APPEND SMDATA_LINK_LIB
   "lua-5.1"
   "tomcrypt"
@@ -417,13 +429,24 @@ list(APPEND SMDATA_LINK_LIB
   "jsoncpp"
   "mad"
   "png"
-  "glew"
-  "jpeg"
 )
 
 if (NOT SYSTEM_PCRE_FOUND)
-  list(INSERT SMDATA_LINK_LIB 8 "pcre")
+list(APPEND SMDATA_LINK_LIB
+   "pcre"
+)
 endif()
+
+if(NOT ANDROID)
+list(APPEND SMDATA_LINK_LIB
+  "glew"
+)
+endif()
+
+# Finish the list
+list(APPEND SMDATA_LINK_LIB
+  "jpeg"
+)
 
 if (WIN32)
   list(APPEND SMDATA_LINK_LIB

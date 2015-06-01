@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
     }
 }
 import java.util.regex.Pattern
@@ -21,20 +21,18 @@ project.ext {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '20.0.0'
-    // Deactivate the automated JNI step altogether.
-    // as of Android-Gradle 0.7.3, it's not optimal for this task.
-//    sourceSets.main.jni.srcDirs = []
+    buildToolsVersion '22.0.1'
+
     sourceSets {
         main {
-            manifest.srcFile 'src/archutils/Android/Framework/AndroidManifest.xml'
+            /*manifest.srcFile 'src/archutils/Android/Framework/AndroidManifest.xml'
             res.srcDirs = ['src/archutils/Android/Framework/res']
             java.srcDirs = ['src/archutils/Android/Framework/java']
             resources.srcDirs = ['src/archutils/Android/Framework/resources']
             aidl.srcDirs = ['src/archutils/Android/Framework/aidl']
             renderscript.srcDirs = ['src/archutils/Android/Framework/renderscript']
-            assets.srcDirs = ['src/archutils/Android/Framework/assets']
-            jniLibs.srcDirs = ['src/obj/local']
+            assets.srcDirs = ['src/archutils/Android/Framework/assets']*/
+            setRoot('src/archutils/Android/Framework')
         }
     }
     defaultConfig {
@@ -100,39 +98,6 @@ dependencies {
 //    compile 'com.google.android.gms:play-services:+'
 //  the above will be replaced by the way more pure C++ libs.
 }
-project.afterEvaluate{
-    preBuild.dependsOn("redirLibs")
-}
-task compileFFMPEG(type:Exec){
-    // Compile FFMPEG using a specific script
-    workingDir 'extern/android'
-    System.out.println project.ext.nativearch + " " + project.android.defaultConfig.minSdkVersion.mApiLevel
-
-    commandLine './build_ffmpeg.sh',project.ext.nativearch,project.android.defaultConfig.minSdkVersion.mApiLevel
-}
-
-task compileStepmania(type:Exec){
-    // Build the Skeleton[s?]
-    workingDir '.'
-    commandLine project.ext.ndkDir+'/ndk-build','-j16','APP_PLATFORM=android-'+project.android.defaultConfig.minSdkVersion.mApiLevel,'NDK_PROJECT_PATH=src/','APP_BUILD_SCRIPT=src/Android.mk','NDK_APPLICATION_MK=src/Application.mk','NDK_MODULE_PATH=./','APP_ABI='+project.ext.eabi
-}
-task cleanStepmania(type:Exec){
-    // Build the Skeleton[s?]
-    workingDir '.'
-    commandLine project.ext.ndkDir+'/ndk-build','-j16','APP_PLATFORM=android-'+project.android.defaultConfig.minSdkVersion.mApiLevel,'NDK_PROJECT_PATH=src/','APP_BUILD_SCRIPT=src/Android.mk','NDK_APPLICATION_MK=src/Application.mk','NDK_MODULE_PATH=./','APP_ABI='+project.ext.eabi,'clean'
-}
-task redirLibs(type:Exec){
-    // Rename/move some libraries to more NDK-proper paths
-    workingDir 'extern/android'
-    commandLine './redir_libs.sh'
-}
-
-// Task Dependancy tree
-//cleanStepmania.dependsOn compileFFMPEG
-//compileStepmania.dependsOn cleanStepmania
-compileStepmania.dependsOn compileFFMPEG
-
-redirLibs.dependsOn compileStepmania
 
 def getVersionCodeFromManifest() {
     def manifestFile = file(android.sourceSets.main.manifest.srcFile)

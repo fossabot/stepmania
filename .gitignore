@@ -1,4 +1,8 @@
 # Traditional Compilation File Stuff.
+install_manifest.txt
+local.properties
+*.iml
+.gradle/
 .idea/
 build/
 .dirstamp

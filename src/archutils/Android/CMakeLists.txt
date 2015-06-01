@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.0.99)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY, "android-bin")
 project( Stepmania_Android )
 
 
@@ -33,7 +32,7 @@ endif()
 # The external libraries need to be included.
 add_subdirectory(../../../extern ${Stepmania_Android_BINARY_DIR}/extern-android)
 
-# The internal libraries and eventual executable to be used.
+# The internal libraries and eventual executable to be used. this is basically "src"
 add_subdirectory(../../ ${Stepmania_Android_BINARY_DIR}/android)
 
 find_package(ZLIB)

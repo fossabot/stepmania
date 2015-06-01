@@ -9,7 +9,7 @@
 #include <cerrno>
 #include <map>
 
-#if defined(_WINDOWS) || defined(MACOSX)
+#if defined(_WINDOWS) || defined(MACOSX) || defined(ANDROID)
 #include "../extern/mad-0.15.1b/mad.h"
 #ifdef _MSC_VER
 #pragma comment(lib, "libmad.lib")

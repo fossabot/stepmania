@@ -1497,7 +1497,11 @@ if( DEFINED LIBRARY_OUTPUT_PATH_ROOT
     else()
       set( EXECUTABLE_OUTPUT_PATH "${LIBRARY_OUTPUT_PATH_ROOT}/bin" CACHE PATH "Output directory for applications" )
     endif()
-    set( LIBRARY_OUTPUT_PATH "${LIBRARY_OUTPUT_PATH_ROOT}/libs/${ANDROID_NDK_ABI_NAME}" CACHE PATH "Output directory for Android libs" )
+    if(DEFINED LIBRARY_ROOT_DIRECT)
+        set( LIBRARY_OUTPUT_PATH "${LIBRARY_OUTPUT_PATH_ROOT}/${ANDROID_NDK_ABI_NAME}" CACHE PATH "Output directory for Android libs" )
+    else()
+        set( LIBRARY_OUTPUT_PATH "${LIBRARY_OUTPUT_PATH_ROOT}/libs/${ANDROID_NDK_ABI_NAME}" CACHE PATH "Output directory for Android libs" )
+    endif()
   endif()
 endif()
 

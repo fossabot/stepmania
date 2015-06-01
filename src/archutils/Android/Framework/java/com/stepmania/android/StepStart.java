@@ -11,12 +11,12 @@ public class StepStart extends NativeActivity {
     // libload forcing; not loading FFMPEG libs before stepmania leads to a refusal to load.
     static {
         // FFMpeg
-        System.loadLibrary("avcodec-55");
+        /*System.loadLibrary("avcodec-55");
         System.loadLibrary("avfilter-4");
         System.loadLibrary("avformat-55");
         System.loadLibrary("avutil-52");
         System.loadLibrary("swresample-0");
-        System.loadLibrary("swscale-2");
+        System.loadLibrary("swscale-2");*/
     }
 
     public int getNativeSampleRate() {
