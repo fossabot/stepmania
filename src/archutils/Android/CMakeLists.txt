@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0.99)
 project( Stepmania_Android )
 
+# TODO: investigate usage of Crystax
 
 if (CMAKE_SYSTEM_NAME MATCHES "Android")
   # nop

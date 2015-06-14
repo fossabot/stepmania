@@ -3,9 +3,6 @@
     package="com.stepmania.android"
     android:versionCode="0">
 
-    <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="19" />
 
     <!-- /sdcard storage -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
