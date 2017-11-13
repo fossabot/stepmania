@@ -14,6 +14,7 @@ StepMania can be compiled using [CMake](http://http://www.cmake.org/). More info
 We use Travis as our continuous integration server. The status can be found below.
 
 [![Build Status](https://travis-ci.org/stepmania/stepmania.svg?branch=master)](https://travis-ci.org/stepmania/stepmania)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcybik%2Fstepmania.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcybik%2Fstepmania?ref=badge_shield)
 
 ##Resources##
 
@@ -27,3 +28,5 @@ We use Travis as our continuous integration server. The status can be found belo
 * All of the our source code is under the [MIT license](http://opensource.org/licenses/MIT).
 * Any songs that are included within this repository are under the [<abbr title="Creative Commons Non-Commercial">CC-NC</abbr> license](https://creativecommons.org/).
 * The [MAD library](http://www.underbit.com/products/mad/) and [FFmpeg codecs](https://www.ffmpeg.org/) when built with our code use the [GPL license](http://www.gnu.org).
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcybik%2Fstepmania.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcybik%2Fstepmania?ref=badge_large)
